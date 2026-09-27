@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REBORN — Horde Guild | WoW Forever</title>
+    <style>
+        :root {
+            --black: #0a0a0f;
+            --deep-purple: #2D0C5E;
+            --rich-purple: #4B0082;
+            --light-purple: #7B1FA2;
+            --gold: #FFD700;
+            --gold-dim: #B8860B;
+            --text-light: #E8E8E8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: var(--black);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+        
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, var(--deep-purple), var(--rich-purple));
+            padding: 1.2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--gold);
+            box-shadow: 0 4px 20px rgba(123, 31, 162, 0.4);
+        }
+        
+        nav .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            letter-spacing: 3px;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Page Container */
+        .page {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Home Page */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, rgba(75, 0, 130, 0.3), rgba(10, 10, 15, 0.9));
+            border-radius: 12px;
+            border: 1px solid var(--gold-dim);
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            color: var(--gold);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            margin-bottom: 1rem;
+            letter-spacing: 6px;
+        }
+        
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--light-purple);
+            margin-bottom: 1.5rem;
+        }
+        
+        .launch-date {
+            font-size: 1.4rem;
+            color: var(--gold);
+            font-weight: bold;
+            padding: 0.8rem 2rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            display: inline-block;
+            border: 1px solid var(--gold);
+            margin-bottom: 2rem;
+        }
+        
+        .hero p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+        
+        .section-box {
+            background: linear-gradient(135deg, rgba(45, 12, 94, 0.4), rgba(75, 0, 130, 0.2));
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--gold);
+        }
+        
+        .section-box h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        
+        /* Forum Page */
+        .forum-category {
+            background: rgba(45, 12, 94, 0.3);
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(123, 31, 162, 0.4);
+        }
+        
+        .forum-header {
+            background: linear-gradient(90deg, var(--deep-purple), var(--rich-purple));
+            padding: 1rem 1.5rem;
+            border-radius: 10px 10px 0 0;
+            border-bottom: 2px solid var(--gold-dim);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        .forum-post {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(123, 31, 162, 0.2);
+            transition: background 0.2s ease;
+        }
+        
+        .forum-post:last-child { border-bottom: none; }
+        
+        .forum-post:hover {
+            background: rgba(123, 31, 162, 0.15);
+        }
+        
+        .post-title {
+            color: var(--text-light);
+            font-weight: 600;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        
+        .post-title:hover {
+            color: var(--gold);
+        }
+        
+        .post-meta {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .new-thread-btn {
+            background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+            color: var(--black);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .new-thread-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Gallery Page */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+        
+        .gallery-card {
+            background: rgba(45, 12, 94, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--deep-purple), var(--rich-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--gold);
+        }
+        
+        .gallery-caption {
+            padding: 1rem;
+            text-align: center;
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+        
+        h2.page-title {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--rich-purple);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--rich-purple);
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-container">
+        <div class="logo">⚔️ REBORN</div>
+        <div class="nav-links">
+            <a href="#" onclick="showPage('home')" class="active" id="nav-home">Home</a>
+            <a href="#" onclick="showPage('forum')" id="nav-forum">Forum</a>
+            <a href="#" onclick="showPage('gallery')" id="nav-gallery">Gallery</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+    <div class="hero">
+        <h1>REBORN</h1>
+        <h2>HORDE GUILD — WoW Forever</h2>
+        <div class="launch-date">🚀 Launching: 4th November 2026</div>
+        <p>We rise, we fall, we are REBORN. Join us on WoW Forever as we build a legendary Horde community — raiding, PvP, dungeons, and family. New and experienced players welcome.</p>
+    </div>
+    
+    <div class="section-box">
+        <h3>🔥 Who We Are</h3>
+        <p>REBORN is a brand new Horde guild launching alongside the WoW Forever server on November 4th, 2026. We are building a community focused on progression, respect, and having fun. Whether you're a veteran raider or just starting your journey, you have a place here.</p>
+    </div>
+    
+    <div class="section-box">
+        <h3>🎯 Our Goals</h3>
+        <p>• Establish a strong, active Horde community<br>
+        • Clear all raid content together<br>
+        • Friendly atmosphere — no toxicity<br>
+        • Help each other grow and gear up<br>
+        • Make memories that last</p>
+    </div>
+    
+    <div class="section-box">
+        <h3>📢 Join Us</h3>
+        <p>Interested? Speak to an officer in-game or drop a message on our Forum! Recruitment is open now — spots are filling fast. Let's conquer Azeroth together.</p>
+    </div>
+</div>
+
+<!-- FORUM PAGE -->
+<div class="page" id="page-forum">
+    <h2 class="page-title">📝 Guild Forum</h2>
+    <button class="new-thread-btn">+ New Thread</button>
+    
+    <div class="forum-category">
+        <div class="forum-header">📢 Announcements</div>
+        <div class="forum-post">
+            <a href="#" class="post-title">🎉 REBORN — Official Launch & Recruitment Open!</a>
+            <div class="post-meta">Posted by: Guild Master • 28 Sep 2026</div>
+        </div>
+        <div class="forum-post">
+            <a href="#" class="post-title">📋 Guild Rules & Code of Conduct — Please Read</a>
+            <div class="post-meta">Posted by: Officer • 27 Sep 2026</div>
+        </div>
+    </div>
+    
+    <div class="forum-category">
+        <div class="forum-header">⚔️ Raid & PvP</div>
+        <div class="forum-post">
+            <a href="#" class="post-title">🗓️ Schedule for Launch Week — Sign-ups Here</a>
+            <div class="post-meta">Posted by: Raid Leader • 26 Sep 2026</div>
+        </div>
+        <div class="forum-post">
+            <a href="#" class="post-title">💬 What class/spec will you be playing? Let's plan comp!</a>
+            <div class="post-meta">Posted by: Member • 25 Sep 2026 — 12 replies</div>
+        </div>
+    </div>
+    
+    <div class="forum-category">
+        <div class="forum-header">🤝 Recruitment & Applications</div>
+        <div class="forum-post">
+            <a href="#" class="post-title">📝 Application Template — Use This to Join REBORN</a>
+            <div class="post-meta">Posted by: Officer • 20 Sep 2026</div>
+        </div>
+        <div class="forum-post">
+            <a href="#" class="post-title">✅ [Application] — Your Name Here</a>
+            <div class="post-meta">Posted by: New Member • Today</div>
+        </div>
+    </div>
+    
+    <div class="forum-category">
+        <div class="forum-header">💬 Off-Topic & Chat</div>
+        <div class="forum-post">
+            <a href="#" class="post-title">🎮 Introduce Yourself — Say Hello!</a>
+            <div class="post-meta">Posted by: Member • 18 Sep 2026 — 24 replies</div>
+        </div>
+    </div>
+</div>
+
+<!-- GALLERY PAGE -->
+<div class="page" id="page-gallery">
+    <h2 class="page-title">🖼️ Gallery</h2>
+    <p style="margin-bottom: 1.5rem; color:#aaa;">Coming soon — guild screenshots, raid moments, and memories from WoW Forever!</p>
+    
+    <div class="gallery-grid">
+        <div class="gallery-card">
+            <div class="gallery-img">⚔️</div>
+            <div class="gallery-caption">Guild Group Photo — Launch Day</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">🏰</div>
+            <div class="gallery-caption">First Raid — Molten Core</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">🏆</div>
+            <div class="gallery-caption">Achievements & Progress</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">🌄</div>
+            <div class="gallery-caption">Exploring Azeroth</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">💀</div>
+            <div class="gallery-caption">PvP Battles</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">🔥</div>
+            <div class="gallery-caption">Guild Events</div>
+        </div>
+    </div>
+    
+    <p style="margin-top: 2rem; color:#888; font-style:italic;">Upload your own screenshots to share with the guild!</p>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>⚔️ REBORN — Horde Guild | WoW Forever • Launching 4th November 2026</p>
+    <p style="margin-top: 0.5rem;">© 2026 REBORN Guild. All rights reserved.</p>
+</footer>
+
+<script>
+    // Page switching function
+    function showPage(pageName) {
+        // Hide all pages
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        // Remove active from all nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.classList.remove('active');
+        });
+        // Show selected page
+        document.getElementById('page-' + pageName).classList.add('active');
+        // Highlight active nav link
+        document.getElementById('nav-' + pageName).classList.add('active');
+        // Scroll to top
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>
